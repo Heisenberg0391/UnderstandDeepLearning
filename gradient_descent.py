@@ -34,7 +34,7 @@ def plot_hyperplane(W, data, labels):
     y = (-W[0]*x - W[2]) / W[1]
 
     # 画图
-    plt.plot(x, y, label='Hypterplane')
+    plt.plot(x, y, label='Hyperplane')
     plt.xlabel('x label')
     limits = [-20, 20, -20, 20]
     plt.axis(limits)
@@ -59,6 +59,8 @@ plt.style.use("ggplot")
 plt.figure()
 plt.title("Origin Data")
 plt.scatter(X[:, 0], X[:, 1], marker="o", c= np.squeeze(y), s= 30)
+plt.legend()
+plt.show()
 
 # 从行向量变成列向量，因为样本点X是列向量
 y = y.reshape((y.shape[0], 1))
@@ -75,6 +77,8 @@ plt.style.use("ggplot")
 plt.figure()
 plt.title("TestData")
 plt.scatter(testX[:, 0], testX[:, 1], marker="o", c= np.squeeze(testY), s= 30)
+plt.legend()
+plt.show()
 
 # 初始化W和损失list
 print("[INFO] training...")
@@ -93,7 +97,6 @@ for epoch in np.arange(0, epochs):
     # 预测误差=预测类别值-真实类别值
     error = preds - trainY
     loss = np.sum(error ** 2)  # 所有样本的平方误差之和
-    # loss = np.sum(np.log10(error ** 2 + 1))  # 平方误差
     losses.append(loss)
 
     # 先将训练集转置成3行1000列
@@ -115,8 +118,6 @@ print("[INFO] evaluating...")
 preds = predict(testX, W)
 print(classification_report(testY, preds))
 
-
-
 # 绘制损失曲线
 plt.style.use("ggplot")
 plt.figure()
@@ -125,4 +126,3 @@ plt.title("Training Loss")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss")
 plt.show()
-
